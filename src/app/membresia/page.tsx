@@ -23,7 +23,7 @@ const BENEFITS = [
   {
     icon: '💳',
     title: 'Descuento en Divisas',
-    desc: 'Obtén un 5% de descuento adicional al pagar con Zelle, Euro o Binance.',
+    desc: 'Descuento exclusivo al pagar con divisas (Zelle o Binance).',
     color: '#fce4ec',
     accent: '#c2185b',
   },
