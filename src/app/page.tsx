@@ -343,10 +343,10 @@ export default function Home() {
           {/* Beneficios */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '24px', marginBottom: '48px', textAlign: 'left' }}>
             {[
-              { icon: '✦', label: '28% de descuento', desc: 'En toda la tienda, siempre' },
+              { icon: '✦', label: 'Descuento en divisas', desc: 'Al pagar con Zelle o Binance' },
               { icon: '✦', label: 'Acceso anticipado', desc: 'Ve las nuevas colecciones primero' },
-              { icon: '✦', label: 'Envíos prioritarios', desc: 'Tu pedido llega antes' },
-              { icon: '✦', label: 'Ofertas exclusivas', desc: 'Solo para miembras Leah' },
+              { icon: '✦', label: 'Delivery gratis', desc: 'Envío local sin costo (hasta 3km)' },
+              { icon: '✦', label: 'Beneficios exclusivos', desc: 'Solo para miembras Leah' },
             ].map(b => (
               <div key={b.label} style={{ padding: '20px', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '6px', background: 'rgba(255,255,255,0.03)' }}>
                 <span style={{ fontSize: '10px', color: '#d4829a', letterSpacing: '2px' }}>{b.icon}</span>
