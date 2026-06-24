@@ -2,17 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma, parseProduct } from '@/lib/prisma';
 import { requireAdmin } from '@/lib/auth-server';
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const auth = requireAdmin(req);
   if ('error' in auth) return auth.error;
+  const { id } = await params;
   try {
     const { name, code, description, price, comparePrice, images, categoryId, variants } = await req.json();
-
-    // Delete existing variants and recreate
-    await prisma.productVariant.deleteMany({ where: { productId: params.id } });
-
+    await prisma.productVariant.deleteMany({ where: { productId: id } });
     const product = await prisma.product.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         name, code: code || null, description,
         price: Number(price),
@@ -33,11 +31,12 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const auth = requireAdmin(req);
   if ('error' in auth) return auth.error;
+  const { id } = await params;
   try {
-    await prisma.product.delete({ where: { id: params.id } });
+    await prisma.product.delete({ where: { id } });
     return NextResponse.json({ ok: true });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
