@@ -12,7 +12,7 @@ type ShipType  = 'LOCAL' | 'ZOOM' | 'MRW' | 'PICKUP';
 
 interface CartItem { productId: string; name: string; price: number; quantity: number; image?: string; size?: string; color?: string }
 
-const WA_NUMBER = '584120000000';
+const WA_NUMBER = '584120759209';
 const DISC_RATE = 0.05;
 
 const SHIPPING = [

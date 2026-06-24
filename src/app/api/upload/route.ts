@@ -51,6 +51,28 @@ export async function POST(req: NextRequest) {
   }
 }
 
+export async function DELETE(req: NextRequest) {
+  const auth = requireAdmin(req);
+  if ('error' in auth) return auth.error;
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !supabaseKey) return NextResponse.json({ error: 'No configurado' }, { status: 500 });
+
+  try {
+    const { searchParams } = new URL(req.url);
+    const name = searchParams.get('name') || req.url.split('/upload/')[1];
+    if (!name) return NextResponse.json({ error: 'Nombre requerido' }, { status: 400 });
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    const { error } = await supabase.storage.from('products').remove([name]);
+    if (error) throw error;
+    return NextResponse.json({ ok: true });
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message }, { status: 500 });
+  }
+}
+
 export async function GET(req: NextRequest) {
   const auth = requireAdmin(req);
   if ('error' in auth) return auth.error;
