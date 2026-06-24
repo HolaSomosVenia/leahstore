@@ -33,7 +33,7 @@ function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
             <p style={{ fontSize: '18px', fontWeight: 700, letterSpacing: '2px', margin: 0 }}>LEAH</p>
             <p style={{ fontSize: '11px', color: '#888', margin: '4px 0 0' }}>Admin Panel</p>
           </div>
-          <button onClick={onClose} className="inv-close-btn" style={{ background: 'none', border: 'none', color: '#888', fontSize: '22px', cursor: 'pointer', display: 'none' }}>×</button>
+          <button onClick={onClose} className="inv-close-btn" style={{ background: 'none', border: 'none', color: '#888', fontSize: '22px', cursor: 'pointer' }}>×</button>
         </div>
         <nav style={{ padding: '16px 0', flex: 1 }}>
           {navLinks.map(item => (
@@ -263,7 +263,9 @@ export default function InventarioPage() {
         @media (max-width: 639px) {
           .inv-main { padding: 16px; }
           .inv-stats { grid-template-columns: repeat(2,1fr); gap: 10px; }
-          .inv-filters input { width: 100% !important; flex: 1; min-width: 0; }
+          .inv-stats > div:last-child:nth-child(odd) { grid-column: span 2; }
+          .inv-filters { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+          .inv-filters input { width: 100% !important; flex: 1 1 100% !important; min-width: 0; order: -1; }
           .inv-table-wrap { display: none !important; }
           .inv-product-cards { display: flex !important; flex-direction: column; gap: 12px; }
           .inv-modal-wrap { align-items: flex-end; }
@@ -272,12 +274,24 @@ export default function InventarioPage() {
             max-height: 90vh !important;
             border-radius: 16px 16px 0 0 !important;
             padding: 20px 16px !important;
+            box-sizing: border-box !important;
             overflow-y: auto;
           }
           .inv-modal-history {
             max-height: 92vh !important;
             border-radius: 16px 16px 0 0 !important;
+            box-sizing: border-box !important;
           }
+          .inv-header-actions { gap: 8px; flex-wrap: wrap; }
+          .inv-header-actions .inv-btn { flex: 1 1 auto; justify-content: center; }
+        }
+
+        /* ── Pantallas muy pequeñas (< 380px) ── */
+        @media (max-width: 379px) {
+          .inv-stats > div { padding: 12px 10px !important; }
+          .inv-stats > div p:last-child { font-size: 18px !important; }
+          .inv-header-actions { flex-direction: column; }
+          .inv-header-actions .inv-btn { width: 100% !important; }
         }
 
         /* Touch targets */
