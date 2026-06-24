@@ -1,0 +1,42 @@
+{
+  "banner": {
+    "image": "http://localhost:3001/uploads/img-1781836136251-agaa5.png",
+    "title": "Coleccion Leah Rosa",
+    "subtitle": "Coleccion Nueva",
+    "buttonText": "Ver Nueva Coleccion"
+  },
+  "carousel": [
+    {
+      "image": "http://localhost:3001/uploads/img-1781836136251-agaa5.png",
+      "title": "Coleccion Leah Rosa",
+      "subtitle": "Coleccion Nueva",
+      "buttonText": "Ver Nueva Coleccion"
+    },
+    {
+      "image": "http://localhost:3001/uploads/img-1781836136225-dv5r6.png",
+      "title": "",
+      "subtitle": "Nueva Colección",
+      "buttonText": "Ver Colección"
+    },
+    {
+      "image": "http://localhost:3001/uploads/img-1781836136134-5v3ri.png",
+      "title": "",
+      "subtitle": "Nueva Colección",
+      "buttonText": "Ver Colección"
+    },
+    {
+      "image": "http://localhost:3001/uploads/img-1781836136190-ii7qw.png",
+      "title": "",
+      "subtitle": "Nueva Colección",
+      "buttonText": "Ver Colección"
+    }
+  ],
+  "collections": [
+    {
+      "id": "1781844461306",
+      "name": "primavera",
+      "image": "http://localhost:3001/uploads/img-1781836136251-agaa5.png",
+      "description": "fresca y rosa"
+    }
+  ]
+}

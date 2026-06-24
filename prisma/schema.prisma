@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id         String      @id @default(cuid())
+  email      String      @unique
+  name       String
+  phone      String?
+  role       String      @default("USER")
+  password   String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  orders     Order[]
+  membership Membership?
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model Product {
+  id           String              @id @default(cuid())
+  name         String
+  code         String?             @unique
+  description  String?
+  price        Float
+  comparePrice Float?
+  images       String              @default("[]")
+  categoryId   String
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  category     Category            @relation(fields: [categoryId], references: [id])
+  variants     ProductVariant[]
+  orderItems   OrderItem[]
+  earlyAccess  EarlyAccessProduct?
+
+  @@index([categoryId])
+  @@index([code])
+}
+
+model ProductVariant {
+  id             String          @id @default(cuid())
+  productId      String
+  sku            String?         @unique
+  size           String?
+  color          String?
+  stock          Int             @default(0)
+  createdAt      DateTime        @default(now())
+  product        Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  stockMovements StockMovement[]
+
+  @@index([productId])
+  @@index([sku])
+}
+
+model StockMovement {
+  id        String         @id @default(cuid())
+  variantId String
+  quantity  Int
+  type      String
+  note      String?
+  createdAt DateTime       @default(now())
+  variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([variantId])
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  userId          String
+  total           Float
+  status          String      @default("PENDING")
+  paymentMethod   String      @default("WHATSAPP")
+  paymentCurrency String      @default("divisas")
+  shippingType    String      @default("LOCAL")
+  deliveryPrice   Float       @default(3)
+  shippingAddress String?
+  notes           String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items           OrderItem[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  productId String
+  variantId String?
+  quantity  Int
+  price     Float
+  size      String?
+  color     String?
+  createdAt DateTime @default(now())
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Membership {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  name         String
+  discount     Float    @default(0.20)
+  freeDelivery Boolean  @default(true)
+  earlyAccess  Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model EarlyAccessProduct {
+  id        String   @id @default(cuid())
+  productId String   @unique
+  releaseAt DateTime
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model SiteConfig {
+  id        String   @id @default("main")
+  data      String   @default("{}")
+  updatedAt DateTime @updatedAt
+}
