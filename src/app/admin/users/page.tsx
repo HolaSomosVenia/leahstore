@@ -59,7 +59,8 @@ export default function AdminUsers() {
           <div style={{ textAlign: 'center', padding: '60px', color: '#aaa' }}>Cargando usuarios...</div>
         ) : (
           <div style={{ background: '#fff', borderRadius: '10px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <div className="admin-table-scroll">
+            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '520px' }}>
               <thead>
                 <tr style={{ background: '#f8f8f8', borderBottom: '2px solid #f0f0f0' }}>
                   {['Nombre', 'Email', 'Teléfono', 'Órdenes', 'Rol', 'Cambiar rol'].map(h => (
@@ -93,6 +94,7 @@ export default function AdminUsers() {
                 )}
               </tbody>
             </table>
+            </div>
           </div>
         )}
       </main>

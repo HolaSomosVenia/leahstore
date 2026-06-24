@@ -123,7 +123,7 @@ export default function AdminConfig() {
         </div>
 
         {/* ── TAB: CARRUSEL ── */}
-        {activeTab === 'carousel' && <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '28px', alignItems: 'start' }}>
+        {activeTab === 'carousel' && <div className="admin-grid-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '28px', alignItems: 'start' }}>
 
           {/* Panel izquierdo */}
           <div>

@@ -71,7 +71,7 @@ export default function AdminDashboard() {
         ) : (
           <>
             {/* Stats cards */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '40px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '16px', marginBottom: '40px' }}>
               {[
                 { label: 'Órdenes totales', value: stats?.totalOrders ?? 0 },
                 { label: 'Ingresos (€)', value: `€${((stats?.totalRevenue ?? 0) / 1.08).toFixed(2)}` },
@@ -152,7 +152,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Quick actions */}
-            <div style={{ marginTop: '24px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+            <div style={{ marginTop: '24px', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '16px' }}>
               {[
                 { href: '/admin/products', title: 'Productos', desc: 'Agregar, editar o eliminar del catálogo' },
                 { href: '/admin/inventario', title: 'Inventario', desc: 'Stock, SKUs, ventas en local y movimientos' },

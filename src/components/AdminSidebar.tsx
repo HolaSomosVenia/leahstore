@@ -52,8 +52,17 @@ export function AdminSidebar({ active }: { active: string }) {
           }
           .admin-sb.open { transform: translateX(0) !important; }
           .admin-sb-hamburger { display: flex !important; align-items: center; }
-          /* Push main content below the floating hamburger */
-          .admin-sb ~ main { padding-top: 68px !important; }
+          /* Push main content below the floating hamburger, reduce side padding */
+          .admin-sb ~ main {
+            padding-top: 68px !important;
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+            padding-bottom: 24px !important;
+          }
+          /* Allow horizontal scroll on table containers */
+          .admin-table-scroll { overflow-x: auto !important; }
+          /* Stack 2-col grids vertically */
+          .admin-grid-stack { grid-template-columns: 1fr !important; }
         }
       `}</style>
 

@@ -491,7 +491,8 @@ export default function AdminProducts() {
             {/* Tabla */}
             {loadingProducts ? <p style={{ color: '#888' }}>Cargando...</p> : (
               <div style={{ background: '#fff', borderRadius: '8px', boxShadow: '0 1px 4px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <div className="admin-table-scroll">
+                <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '520px' }}>
                   <thead>
                     <tr style={{ borderBottom: '2px solid #f0f0f0' }}>
                       {['Foto', 'Nombre', 'Categoría', 'Precio', 'Tallas', 'Acciones'].map((h) => (
@@ -527,6 +528,7 @@ export default function AdminProducts() {
                     ))}
                   </tbody>
                 </table>
+                </div>
                 {products.length === 0 && (
                   <div style={{ textAlign: 'center', padding: '60px 0', color: '#ccc' }}>
                     <p>No hay productos. Haz clic en "+ Nuevo Producto"</p>
