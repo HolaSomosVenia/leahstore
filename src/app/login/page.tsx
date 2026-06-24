@@ -103,12 +103,6 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* Hint admin */}
-          <div style={{ marginTop: '16px', padding: '14px 18px', background: '#fff', border: '1px solid #f0f0f0', borderRadius: '8px', textAlign: 'center' }}>
-            <p style={{ fontSize: '11px', color: '#aaa', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '1px' }}>Acceso Admin</p>
-            <p style={{ fontSize: '12px', fontFamily: 'monospace', color: '#888', margin: 0 }}>admin@leah.com</p>
-            <p style={{ fontSize: '12px', fontFamily: 'monospace', color: '#888', margin: '2px 0 0' }}>Admin2025!</p>
-          </div>
         </div>
       </div>
     </div>
