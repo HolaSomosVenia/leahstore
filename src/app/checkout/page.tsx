@@ -7,7 +7,7 @@ import { Header } from '@/components/Header';
 import Link from 'next/link';
 import api from '@/lib/api';
 
-type PayMethod = 'PAGO_MOVIL' | 'ZELLE' | 'EURO' | 'BINANCE';
+type PayMethod = 'PAGO_MOVIL' | 'ZELLE' | 'BINANCE';
 type ShipType  = 'LOCAL' | 'ZOOM' | 'MRW' | 'PICKUP';
 
 interface CartItem { productId: string; name: string; price: number; quantity: number; image?: string; size?: string; color?: string }
@@ -23,16 +23,14 @@ const SHIPPING = [
 ];
 
 const PAYMENTS = [
-  { id: 'PAGO_MOVIL' as PayMethod, icon: '🏦', label: 'Pago Móvil (Bs.)',       sub: 'BDV · Banesco · Centenario · Tasa BCV oficial',        divisa: false },
-  { id: 'ZELLE'      as PayMethod, icon: '💵', label: 'Zelle (USD)',             sub: 'Dólares americanos · Incluye 5% de descuento',         divisa: true  },
-  { id: 'EURO'       as PayMethod, icon: '🏛️', label: 'Transferencia Euros (€)', sub: 'Transferencia bancaria en Euros · Incluye 5% descuento', divisa: true },
-  { id: 'BINANCE'    as PayMethod, icon: '₿',  label: 'Binance Pay (USDT)',      sub: 'Criptomonedas USDT · Incluye 5% de descuento',         divisa: true  },
+  { id: 'PAGO_MOVIL' as PayMethod, icon: '🏦', label: 'Pago Móvil (Bs.)',  sub: 'BDV · Banesco · Centenario · Tasa BCV oficial',       divisa: false },
+  { id: 'ZELLE'      as PayMethod, icon: '💵', label: 'Zelle (USD)',        sub: 'Dólares americanos · Incluye 5% de descuento',        divisa: true  },
+  { id: 'BINANCE'    as PayMethod, icon: '₿',  label: 'Binance Pay (USDT)', sub: 'Criptomonedas USDT · Incluye 5% de descuento',       divisa: true  },
 ];
 
 const PAY_DETAILS: Record<PayMethod, string[]> = {
   PAGO_MOVIL: ['Banco de Venezuela · Tlf: 0412-XXX-XXXX · C.I: V-12.345.678', 'Banesco · Tlf: 0414-XXX-XXXX · C.I: V-12.345.678'],
   ZELLE:      ['Correo Zelle: pagos@leah.com', 'Titular: Leah'],
-  EURO:       ['IBAN: ES12 3456 7890 1234 5678 9012', 'Titular: Leah', 'Concepto: [nombre] + [# pedido]'],
   BINANCE:    ['Binance ID: 123456789', 'Moneda: USDT (TRC-20 o BEP-20)'],
 };
 
