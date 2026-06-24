@@ -3,7 +3,7 @@ import "./globals.css";
 import { CurrencyProvider } from '@/components/CurrencyProvider';
 
 export const metadata: Metadata = {
-  title: "Bienchic - Tienda de Moda Femenina",
+  title: "Leah - Tienda de Moda Femenina",
   description: "Tienda en línea de ropa y accesorios para mujeres",
 };
 
