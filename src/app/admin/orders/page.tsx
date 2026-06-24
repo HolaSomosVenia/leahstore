@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { AdminSidebar } from '@/components/AdminSidebar';
 import { useAuth } from '@/lib/auth';
 import api from '@/lib/api';
 
@@ -17,14 +18,6 @@ interface Order {
   createdAt: string;
 }
 
-const NAV = [
-  { href: '/admin/dashboard',  label: '📊 Dashboard' },
-  { href: '/admin/products',   label: '👗 Productos' },
-  { href: '/admin/inventario', label: '📦 Inventario' },
-  { href: '/admin/orders',     label: '🛍️ Órdenes', active: true },
-  { href: '/admin/users',      label: '👤 Usuarios' },
-  { href: '/admin/config',     label: '⚙️ Configuración' },
-];
 
 const STATUS_COLORS: Record<string, { bg: string; color: string }> = {
   PAID:       { bg: '#e8f5e9', color: '#2e7d32' },
@@ -78,23 +71,7 @@ export default function AdminOrders() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8f8f8', display: 'flex' }}>
-      {/* Sidebar */}
-      <aside style={{ width: '220px', background: '#000', color: '#fff', padding: '32px 0', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
-        <div style={{ padding: '0 24px 28px', borderBottom: '1px solid #222' }}>
-          <p style={{ fontSize: '18px', fontWeight: 700, letterSpacing: '2px', margin: 0 }}>LEAH</p>
-          <p style={{ fontSize: '11px', color: '#888', margin: '4px 0 0' }}>Admin Panel</p>
-        </div>
-        <nav style={{ padding: '20px 0', flex: 1 }}>
-          {NAV.map(item => (
-            <Link key={item.href} href={item.href} style={{ display: 'block', padding: '12px 24px', color: item.active ? '#fff' : '#aaa', textDecoration: 'none', fontSize: '13px', fontWeight: 500, background: item.active ? '#1a1a1a' : 'transparent' }}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <div style={{ padding: '20px 24px', borderTop: '1px solid #222' }}>
-          <Link href="/" style={{ fontSize: '12px', color: '#666', textDecoration: 'none' }}>← Volver a tienda</Link>
-        </div>
-      </aside>
+      <AdminSidebar active="/admin/orders" />
 
       {/* Main */}
       <main style={{ flex: 1, padding: '40px', overflowY: 'auto' }}>

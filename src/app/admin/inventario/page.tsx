@@ -2,56 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useAuth } from '@/lib/auth';
 import api from '@/lib/api';
+import { AdminSidebar } from '@/components/AdminSidebar';
 
 interface Variant { id: string; sku?: string | null; size?: string; color?: string; stock: number; }
 interface Product { id: string; name: string; code?: string | null; category: { name: string }; variants: Variant[]; images: string[]; }
 type ModalType = 'adjust' | 'sale' | 'history' | 'editCode' | null;
 
-/* ─── Sidebar ─────────────────────────────────────────────────────────────── */
-function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const navLinks = [
-    { href: '/admin/dashboard', label: '📊 Dashboard' },
-    { href: '/admin/products',  label: '👗 Productos' },
-    { href: '/admin/inventario',label: '📦 Inventario', active: true },
-    { href: '/admin/orders',    label: '🛍️ Órdenes' },
-    { href: '/admin/users',     label: '👤 Usuarios' },
-    { href: '/admin/config',    label: '⚙️ Configuración' },
-  ];
-  return (
-    <>
-      {/* Backdrop (tablet/mobile) */}
-      {open && (
-        <div onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 298 }} />
-      )}
-      <aside className={`inv-sidebar${open ? ' open' : ''}`}
-        style={{ width: '220px', background: '#000', color: '#fff', padding: '32px 0', flexShrink: 0, display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <div style={{ padding: '0 24px 24px', borderBottom: '1px solid #222', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <p style={{ fontSize: '18px', fontWeight: 700, letterSpacing: '2px', margin: 0 }}>LEAH</p>
-            <p style={{ fontSize: '11px', color: '#888', margin: '4px 0 0' }}>Admin Panel</p>
-          </div>
-          <button onClick={onClose} className="inv-close-btn" style={{ background: 'none', border: 'none', color: '#888', fontSize: '22px', cursor: 'pointer' }}>×</button>
-        </div>
-        <nav style={{ padding: '16px 0', flex: 1 }}>
-          {navLinks.map(item => (
-            <Link key={item.href} href={item.href} onClick={onClose} style={{
-              display: 'block', padding: '13px 24px',
-              color: item.active ? '#fff' : '#aaa',
-              textDecoration: 'none', fontSize: '13px', fontWeight: 500,
-              background: item.active ? '#1a1a1a' : 'transparent',
-            }}>{item.label}</Link>
-          ))}
-        </nav>
-        <div style={{ padding: '20px 24px', borderTop: '1px solid #222' }}>
-          <Link href="/" style={{ fontSize: '12px', color: '#666', textDecoration: 'none' }}>← Volver a tienda</Link>
-        </div>
-      </aside>
-    </>
-  );
-}
 
 /* ─── Chip de código/SKU ──────────────────────────────────────────────────── */
 const CodeChip = ({ value, green }: { value?: string | null; green?: boolean }) => (
@@ -73,7 +31,6 @@ export default function InventarioPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [filterLow, setFilterLow] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [modal, setModal] = useState<ModalType>(null);
 
   // Ajuste stock
@@ -210,14 +167,6 @@ export default function InventarioPage() {
       <style>{`
         .inv-layout { display: flex; min-height: 100vh; background: #f8f8f8; }
 
-        /* Sidebar */
-        .inv-sidebar {
-          position: relative; z-index: 299;
-          flex-shrink: 0;
-        }
-        .inv-close-btn { display: none !important; }
-        .inv-hamburger { display: none; }
-
         /* Main */
         .inv-main { flex: 1; padding: 40px; overflow-y: auto; }
 
@@ -242,18 +191,7 @@ export default function InventarioPage() {
 
         /* ── Tablet (< 1024px) ── */
         @media (max-width: 1023px) {
-          .inv-sidebar {
-            position: fixed !important;
-            left: -240px;
-            top: 0;
-            height: 100vh;
-            transition: left 0.28s cubic-bezier(0.4,0,0.2,1);
-            overflow-y: auto;
-          }
-          .inv-sidebar.open { left: 0 !important; }
-          .inv-close-btn { display: flex !important; }
-          .inv-hamburger { display: flex !important; }
-          .inv-main { padding: 24px 20px; }
+          .inv-main { padding: 68px 20px 24px; }
           .inv-stats { grid-template-columns: repeat(3,1fr); gap: 12px; }
           .inv-header { flex-direction: column; gap: 14px; }
           .inv-header-actions { width: 100%; justify-content: flex-end; }
@@ -301,18 +239,13 @@ export default function InventarioPage() {
       `}</style>
 
       <div className="inv-layout">
-        <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <AdminSidebar active="/admin/inventario" />
 
         <main className="inv-main">
 
           {/* ── Header ────────────────────────────────────────────────────── */}
           <div className="inv-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-              <button className="inv-hamburger inv-btn"
-                onClick={() => setSidebarOpen(true)}
-                style={{ background: '#fff', border: '1.5px solid #e5e5e5', borderRadius: '6px', padding: '8px 11px', cursor: 'pointer', fontSize: '18px', lineHeight: 1 }}>
-                ☰
-              </button>
               <div>
                 <h1 style={{ fontSize: '22px', fontWeight: 700, margin: '0 0 2px' }}>Inventario</h1>
                 <p style={{ fontSize: '12px', color: '#888', margin: 0 }}>Stock en tiempo real · Códigos y SKUs</p>

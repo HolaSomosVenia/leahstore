@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { AdminSidebar } from '@/components/AdminSidebar';
 import { useAuth } from '@/lib/auth';
 import api from '@/lib/api';
 
@@ -364,30 +365,7 @@ export default function AdminProducts() {
         </div>
       )}
 
-      {/* Sidebar */}
-      <aside style={{ width: '220px', background: '#000', color: '#fff', padding: '32px 0', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
-        <div style={{ padding: '0 24px 32px', borderBottom: '1px solid #222' }}>
-          <p style={{ fontSize: '18px', fontWeight: 700, letterSpacing: '2px', margin: 0 }}>LEAH</p>
-          <p style={{ fontSize: '11px', color: '#888', margin: '4px 0 0' }}>Admin Panel</p>
-        </div>
-        <nav style={{ padding: '24px 0', flex: 1 }}>
-          {[
-            { href: '/admin/dashboard', label: '📊 Dashboard' },
-            { href: '/admin/products', label: '👗 Productos', active: true },
-            { href: '/admin/inventario', label: '📦 Inventario' },
-            { href: '/admin/orders', label: '🛍️ Órdenes' },
-            { href: '/admin/users', label: '👤 Usuarios' },
-            { href: '/admin/config', label: '⚙️ Configuración' },
-          ].map((item) => (
-            <Link key={item.href} href={item.href} style={{ display: 'block', padding: '12px 24px', color: (item as any).active ? '#fff' : '#aaa', textDecoration: 'none', fontSize: '13px', fontWeight: 500, background: (item as any).active ? '#1a1a1a' : 'transparent' }}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <div style={{ padding: '24px', borderTop: '1px solid #222' }}>
-          <Link href="/" style={{ fontSize: '12px', color: '#666', textDecoration: 'none' }}>← Volver a tienda</Link>
-        </div>
-      </aside>
+      <AdminSidebar active="/admin/products" />
 
       {/* Main */}
       <main style={{ flex: 1, padding: '40px', overflowY: 'auto' }}>
