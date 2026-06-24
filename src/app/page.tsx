@@ -24,7 +24,7 @@ const CATS = [
   { slug: 'accesorios', name: 'Accesorios', href: '/products?category=accesorios', span: 'wide' },
 ] as const;
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
 
 interface Collection { id: string; name: string; image: string; description: string; }
 
