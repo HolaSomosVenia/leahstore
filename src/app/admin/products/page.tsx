@@ -23,7 +23,7 @@ const CATEGORIES = [
 ];
 
 const BLANK_PRODUCT = { name: '', description: '', price: '', categoryId: 'cat-1' };
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
 
 const inp = (extra?: object): React.CSSProperties => ({
   width: '100%', padding: '9px 12px', border: '1.5px solid #e5e5e5',
